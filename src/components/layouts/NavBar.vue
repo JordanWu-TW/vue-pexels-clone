@@ -1,14 +1,15 @@
 <template>
   <header v-if="!isLoginModalVisible" :class="{ solidColor: changeNavStyle }">
     <div class="logo-container">
-      <router-link to="#" class="logo-icon">
+      <router-link to="/" class="logo-icon">
         <img
           src="../../assets/logo/Pexels-Logo.jpeg"
           alt="Picture of logo"
           title="Free Stock Photos"
+          @click="closeMobileNav"
         />
       </router-link>
-      <router-link to="#" class="logo-text nav-link">Develop</router-link>
+      <router-link to="/" class="logo-text nav-link">Develop</router-link>
       <div class="search-bar-container" v-if="changeNavStyle">
         <input type="text" placeholder="Search for free photos" />
         <button class="search-bar-btn">
@@ -25,7 +26,7 @@
           <router-link to="#" class="nav-link">License</router-link>
         </li>
         <li>
-          <router-link to="#" class="nav-link">Upload</router-link>
+          <router-link to="#" class="nav-link">Partners</router-link>
         </li>
         <li v-if="userIsAuthenticated" class="notificationIconContainer">
           <button>
@@ -74,11 +75,13 @@
           </div>
         </li>
         <li v-if="userIsAuthenticated">
-          <router-link to="#" class="nav-cta nav-link">Upload</router-link>
+          <router-link to="/upload" class="nav-cta nav-link"
+            >Upload</router-link
+          >
         </li>
         <li v-else>
           <router-link
-            to="#"
+            to=""
             class="nav-cta nav-link"
             @click="showLoginModal(true)"
             >Login</router-link
@@ -106,7 +109,9 @@
         </div>
         <ul>
           <li>
-            <router-link class="mobile-nav-link" to="#">Home</router-link>
+            <router-link class="mobile-nav-link" to="/" @click="closeMobileNav"
+              >Home</router-link
+            >
           </li>
         </ul>
         <hr />
@@ -145,7 +150,7 @@
           <li>
             <router-link
               class="mobile-nav-link style-thin"
-              to="#"
+              to=""
               @click="
                 toggleMobileNav();
                 showLoginModal(true);
@@ -181,7 +186,10 @@
             >
           </li>
           <li>
-            <router-link class="mobile-nav-link style-thin" to="#"
+            <router-link
+              class="mobile-nav-link style-thin"
+              to="/upload"
+              @click="toggleMobileNav"
               >Upload</router-link
             >
           </li>
@@ -297,6 +305,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
+      this.$router.replace("/");
       this.isSubmenuVisible = false;
       this.isMobileNavVisible = false;
     },
@@ -314,6 +323,9 @@ export default {
     },
     toggleMobileNav() {
       this.isMobileNavVisible = !this.isMobileNavVisible;
+    },
+    closeMobileNav() {
+      this.isMobileNavVisible = false;
     },
   },
   computed: {

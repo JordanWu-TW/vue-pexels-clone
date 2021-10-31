@@ -171,6 +171,7 @@ export default {
         if (this.formValidation.initialFormValidation) {
           this.isLoading = true;
           await this.$store.dispatch("createAccount", this.userObj);
+          this.resetForm();
           this.isLoading = false;
         }
       } catch (err) {
@@ -187,6 +188,12 @@ export default {
         }
         this.isLoading = false;
       }
+    },
+    resetForm() {
+      this.userObj.firstName = null;
+      this.userObj.lastName = null;
+      this.userObj.email = null;
+      this.userObj.password = null;
     },
     resetFormValidation() {
       this.formValidation.firstName = null;

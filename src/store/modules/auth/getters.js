@@ -5,4 +5,7 @@ export default {
   userFullName(state) {
     return `${state.firstName} ${state.lastName}`;
   },
+  userId(state) {
+    return state.id;
+  },
 };
