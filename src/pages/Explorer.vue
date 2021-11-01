@@ -1,0 +1,116 @@
+<template>
+  <index-hero></index-hero>
+  <div class="container" v-if="!isLoading">
+    <explorer-item
+      v-for="photo in photos"
+      :key="photo.photoId"
+      :userId="photo.userId"
+      :photoId="photo.photoId"
+      :imgUrl="photo.imgUrl"
+      :title="photo.title"
+      :description="photo.description"
+      :createTime="photo.createTime"
+    ></explorer-item>
+  </div>
+  <div class="load-spinner-container" v-else>
+    <load-spinner></load-spinner>
+  </div>
+</template>
+
+<script>
+import StringUtils from "../utils/stringUtils";
+import Constants from "../constants";
+import IndexHero from "../components/sections/IndexHero.vue";
+import ExplorerItem from "../components/explorer/ExplorerItem.vue";
+
+export default {
+  components: {
+    "index-hero": IndexHero,
+    "explorer-item": ExplorerItem,
+  },
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+  computed: {
+    photos() {
+      let photos = this.$store.getters["photos/getAllPhotos"];
+      if (this.searchKeyword !== "") {
+        photos = photos.filter((photo) => {
+          const lowerCasedSearchKeyword = this.searchKeyword.toLowerCase();
+          const lowerCasedSearchTitle = photo.title.toLowerCase();
+          const lowerCasedSearchDescription = photo.description.toLowerCase();
+          return (
+            lowerCasedSearchTitle.includes(lowerCasedSearchKeyword) ||
+            lowerCasedSearchDescription.includes(lowerCasedSearchKeyword)
+          );
+        });
+      }
+      photos.forEach((photo) => {
+        if (photo.description.length >= Constants.PHOTO_DESCRIPTION_LENGTH) {
+          photo.description = StringUtils.truncate(
+            photo.description,
+            Constants.PHOTO_DESCRIPTION_LENGTH
+          );
+        }
+      });
+      return photos;
+    },
+    searchKeyword() {
+      return this.$store.getters["photos/getSearchKeyword"];
+    },
+  },
+  async created() {
+    this.isLoading = true;
+    await this.$store.dispatch("photos/loadAllPhotos");
+    this.isLoading = false;
+  },
+  beforeRouteLeave() {
+    this.$store.dispatch("photos/resetSearchKeyword");
+  },
+};
+</script>
+
+<style scoped>
+.container {
+  max-width: 140rem;
+  margin: 0 auto;
+  padding: 6rem 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.6rem;
+}
+.load-spinner-container {
+  max-width: 140rem;
+  margin: 0 auto;
+  padding: 10rem 0;
+  text-align: center;
+}
+/* max-width: 1248px */
+@media (max-width: 78em) {
+  .container {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 6rem;
+    row-gap: 3.6rem;
+  }
+}
+/* max-width: 800px */
+@media (max-width: 50em) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* max-width: 544px */
+@media (max-width: 34em) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+/* max-width: 384px */
+@media (max-width: 24em) {
+  .container {
+    padding: 3rem;
+  }
+}
+</style>

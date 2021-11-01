@@ -65,7 +65,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem;
+  padding: 6rem 4rem;
 }
 header {
   width: 50%;
