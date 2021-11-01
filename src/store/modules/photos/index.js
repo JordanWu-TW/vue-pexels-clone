@@ -5,7 +5,10 @@ import getters from "./getters";
 export default {
   namespaced: true,
   state() {
-    return {};
+    return {
+      searchKeyword: "",
+      photos: [],
+    };
   },
   mutations: mutations,
   actions: actions,

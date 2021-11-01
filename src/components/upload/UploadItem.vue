@@ -147,6 +147,7 @@ export default {
       this.isLoading = true;
       await this.$store.dispatch("photos/uploadPhoto", {
         uploadId: this.uploadId,
+        createTime: this.uploadId,
         ...this.inputObj,
       });
       this.isLoading = false;

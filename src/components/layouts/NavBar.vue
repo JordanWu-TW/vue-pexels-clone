@@ -11,8 +11,23 @@
       </router-link>
       <router-link to="/" class="logo-text nav-link">Develop</router-link>
       <div class="search-bar-container" v-if="changeNavStyle">
-        <input type="text" placeholder="Search for free photos" />
-        <button class="search-bar-btn">
+        <input
+          type="text"
+          placeholder="Search for free photos"
+          @input="setSearchKeyword"
+          @keyup.enter="
+            toExplorer();
+            closeMobileNav();
+          "
+          :value="searchKeyword"
+        />
+        <button
+          class="search-bar-btn"
+          @click="
+            toExplorer();
+            closeMobileNav();
+          "
+        >
           <ion-icon name="search-outline" class="search-bar-icon"></ion-icon>
         </button>
       </div>
@@ -20,7 +35,7 @@
     <nav>
       <ul class="nav-desktop">
         <li>
-          <router-link to="#" class="nav-link">Explore</router-link>
+          <router-link to="/explorer" class="nav-link">Explore</router-link>
         </li>
         <li>
           <router-link to="#" class="nav-link">License</router-link>
@@ -117,8 +132,11 @@
         <hr />
         <ul>
           <li>
-            <router-link class="mobile-nav-link" to="#"
-              >Discover Photos</router-link
+            <router-link
+              class="mobile-nav-link"
+              to="/explorer"
+              @click="closeMobileNav"
+              >Explore Photos</router-link
             >
           </li>
           <li>
@@ -327,6 +345,12 @@ export default {
     closeMobileNav() {
       this.isMobileNavVisible = false;
     },
+    setSearchKeyword(event) {
+      this.$store.dispatch("photos/setSearchKeyword", event.target.value);
+    },
+    toExplorer() {
+      this.$router.push("/explorer");
+    },
   },
   computed: {
     userIsAuthenticated() {
@@ -337,6 +361,9 @@ export default {
     },
     changeNavStyle() {
       return this.isMobileNavVisible || this.scrollPosition > 100;
+    },
+    searchKeyword() {
+      return this.$store.getters["photos/getSearchKeyword"];
     },
   },
   mounted() {

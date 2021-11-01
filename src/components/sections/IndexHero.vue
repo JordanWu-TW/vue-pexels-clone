@@ -7,8 +7,14 @@
           creators.
         </h1>
         <div class="search-bar-container">
-          <input type="text" placeholder="Search for free photos and videos" />
-          <button class="search-bar-btn">
+          <input
+            type="text"
+            placeholder="Search for free photos and videos"
+            @input="setSearchKeyword"
+            @keyup.enter="toExplorer"
+            :value="searchKeyword"
+          />
+          <button class="search-bar-btn" @click="toExplorer">
             <ion-icon name="search-outline" class="search-bar-icon"></ion-icon>
           </button>
         </div>
@@ -28,7 +34,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    setSearchKeyword(event) {
+      this.$store.dispatch("photos/setSearchKeyword", event.target.value);
+    },
+    toExplorer() {
+      this.$router.push("/explorer");
+    },
+  },
+  computed: {
+    searchKeyword() {
+      return this.$store.getters["photos/getSearchKeyword"];
+    },
+  },
+};
 </script>
 
 <style scoped>
