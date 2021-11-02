@@ -1,18 +1,26 @@
 <template>
   <index-hero></index-hero>
-  <div class="container" v-if="!isLoading">
-    <explorer-item
-      v-for="photo in photos"
-      :key="photo.photoId"
-      :userId="photo.userId"
-      :photoId="photo.photoId"
-      :imgUrl="photo.imgUrl"
-      :title="photo.title"
-      :description="photo.description"
-      :createTime="photo.createTime"
-    ></explorer-item>
+  <transition name="default">
+    <div class="container" v-if="!isLoading && !noMatchingData">
+      <explorer-item
+        v-for="photo in photos"
+        :key="photo.photoId"
+        :userId="photo.userId"
+        :photoId="photo.photoId"
+        :imgUrl="photo.imgUrl"
+        :title="photo.title"
+        :description="photo.description"
+        :createTime="photo.createTime"
+      ></explorer-item>
+    </div>
+  </transition>
+  <div class="no-data-container" v-if="noMatchingData">
+    <img
+      src="../assets/misc/result-not-found.png"
+      alt="Picture of no matching data"
+    />
   </div>
-  <div class="load-spinner-container" v-else>
+  <div class="load-spinner-container" v-if="isLoading">
     <load-spinner></load-spinner>
   </div>
 </template>
@@ -31,6 +39,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      noMatchingData: false,
     };
   },
   computed: {
@@ -61,6 +70,13 @@ export default {
       return this.$store.getters["photos/getSearchKeyword"];
     },
   },
+  watch: {
+    photos() {
+      this.photos.length === 0
+        ? (this.noMatchingData = true)
+        : (this.noMatchingData = false);
+    },
+  },
   async created() {
     this.isLoading = true;
     await this.$store.dispatch("photos/loadAllPhotos");
@@ -81,11 +97,15 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   gap: 3.6rem;
 }
-.load-spinner-container {
+.load-spinner-container,
+.no-data-container {
   max-width: 140rem;
   margin: 0 auto;
   padding: 10rem 0;
   text-align: center;
+}
+.no-data-container img {
+  width: 20%;
 }
 /* max-width: 1248px */
 @media (max-width: 78em) {

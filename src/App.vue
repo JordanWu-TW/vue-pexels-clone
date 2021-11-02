@@ -50,6 +50,24 @@ em {
   font-weight: inherit;
 }
 
+/* default transition */
+.default-enter-from,
+.default-leave-to {
+  opacity: 0;
+  transform: translateY(-3rem);
+}
+.default-enter-to,
+.default-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+.default-enter-active {
+  transition: all 0.3s ease-out;
+}
+.default-leave-active {
+  transition: all 0.3s ease-in;
+}
+
 /* max-width: 1200px */
 @media (max-width: 75em) {
   html {

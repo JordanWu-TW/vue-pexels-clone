@@ -293,7 +293,7 @@
       </div>
     </nav>
   </header>
-  <transition>
+  <transition name="default">
     <login-modal
       v-if="isLoginModalVisible"
       @showLoginModal="showLoginModal"

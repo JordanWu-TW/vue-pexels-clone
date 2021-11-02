@@ -360,23 +360,6 @@ footer ul li a:active {
   color: #fff;
   white-space: nowrap;
 }
-/* Animation */
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-  transform: translateY(-3rem);
-}
-.v-enter-active {
-  transition: all 0.2s ease-out;
-}
-.v-leave-active {
-  transition: all 0.2s ease-in;
-}
-.v-enter-to,
-.v-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
 .formValidationMsg {
   align-self: flex-start;
   color: red;
