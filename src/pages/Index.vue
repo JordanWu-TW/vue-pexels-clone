@@ -1,6 +1,8 @@
 <template>
   <index-hero></index-hero>
-  <index-cta></index-cta>
+  <transition name="default" appear>
+    <index-cta></index-cta>
+  </transition>
 </template>
 
 <script>

@@ -1,33 +1,36 @@
 <template>
   <index-hero></index-hero>
-  <div class="container">
-    <header>
-      <h1>Upload Photos &amp; Videos</h1>
-      <ul>
-        <li>
-          Your uploads will be distributed for free under the Pexels license.
-          Learn more
-        </li>
-        <li>
-          To increase the chance of being featured, please ensure that your
-          submissions meet our guidelines.
-        </li>
-        <li>
-          We'll review your submission. If it gets selected, you will receive an
-          email notification and your content will be featured in our search.
-        </li>
-      </ul>
-    </header>
-    <div class="cta-add">
-      <button @click="addImage">Add Image</button>
+  <transition name="default" appear>
+    <div class="container">
+      <header>
+        <h1>Upload Photos &amp; Videos</h1>
+        <ul>
+          <li>
+            Your uploads will be distributed for free under the Pexels license.
+            Learn more
+          </li>
+          <li>
+            To increase the chance of being featured, please ensure that your
+            submissions meet our guidelines.
+          </li>
+          <li>
+            We'll review your submission. If it gets selected, you will receive
+            an email notification and your content will be featured in our
+            search.
+          </li>
+        </ul>
+      </header>
+      <div class="cta-add">
+        <button @click="addImage">Add Image</button>
+      </div>
+      <upload-item
+        v-for="upload in uploads"
+        :key="upload"
+        :uploadId="upload"
+        @delete-upload="deleteUpload"
+      ></upload-item>
     </div>
-    <upload-item
-      v-for="upload in uploads"
-      :key="upload"
-      :uploadId="upload"
-      @delete-upload="deleteUpload"
-    ></upload-item>
-  </div>
+  </transition>
 </template>
 
 <script>
