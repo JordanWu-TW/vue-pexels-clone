@@ -382,7 +382,7 @@ header {
   padding: 0.8rem 1.6rem;
   position: fixed;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 header.solidColor {
   background-color: #232a34;

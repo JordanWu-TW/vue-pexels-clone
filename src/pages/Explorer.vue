@@ -9,8 +9,9 @@
         :photoId="photo.photoId"
         :imgUrl="photo.imgUrl"
         :title="photo.title"
-        :description="photo.description"
+        :description="truncatedDescription(photo.description)"
         :createTime="photo.createTime"
+        @click="showModal(photo)"
       ></explorer-item>
     </div>
   </transition>
@@ -23,6 +24,13 @@
   <div class="load-spinner-container" v-if="isLoading">
     <load-spinner></load-spinner>
   </div>
+  <transition name="default">
+    <photo-modal
+      v-if="isModalVisible"
+      @closeModal="closeModal"
+      :modalData="modalData"
+    ></photo-modal>
+  </transition>
 </template>
 
 <script>
@@ -30,17 +38,40 @@ import StringUtils from "../utils/stringUtils";
 import Constants from "../constants";
 import IndexHero from "../components/sections/IndexHero.vue";
 import ExplorerItem from "../components/explorer/ExplorerItem.vue";
+import PhotoModal from "../components/layouts/PhotoModal.vue";
 
 export default {
   components: {
     "index-hero": IndexHero,
     "explorer-item": ExplorerItem,
+    "photo-modal": PhotoModal,
   },
   data() {
     return {
       isLoading: false,
       noMatchingData: false,
+      isModalVisible: false,
+      modalData: null,
     };
+  },
+  methods: {
+    showModal(data) {
+      this.modalData = data;
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.modalData = null;
+      this.isModalVisible = false;
+    },
+    truncatedDescription(description) {
+      if (description.length >= Constants.PHOTO_DESCRIPTION_LENGTH) {
+        description = StringUtils.truncate(
+          description,
+          Constants.PHOTO_DESCRIPTION_LENGTH
+        );
+      }
+      return description;
+    },
   },
   computed: {
     photos() {
@@ -56,14 +87,6 @@ export default {
           );
         });
       }
-      photos.forEach((photo) => {
-        if (photo.description.length >= Constants.PHOTO_DESCRIPTION_LENGTH) {
-          photo.description = StringUtils.truncate(
-            photo.description,
-            Constants.PHOTO_DESCRIPTION_LENGTH
-          );
-        }
-      });
       return photos;
     },
     searchKeyword() {
@@ -105,7 +128,7 @@ export default {
   text-align: center;
 }
 .no-data-container img {
-  width: 20%;
+  width: 20rem;
 }
 /* max-width: 1248px */
 @media (max-width: 78em) {
