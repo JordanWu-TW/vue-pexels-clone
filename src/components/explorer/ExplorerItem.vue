@@ -32,6 +32,7 @@ export default {
   transition: all 0.2s linear;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 .explorer-item-container:hover {
   transform: scale(1.05);

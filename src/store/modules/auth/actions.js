@@ -53,6 +53,12 @@ export default {
       throw error;
     }
   },
+  async getUser(context, payload) {
+    const url = `https://vue-http-01-ece99-default-rtdb.asia-southeast1.firebasedatabase.app/users/${payload}.json`;
+    const response = await fetch(url);
+    const responseData = await response.json();
+    return responseData;
+  },
   async login(context, payload) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
     const response = await fetch(url, {
