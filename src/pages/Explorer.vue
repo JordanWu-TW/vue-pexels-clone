@@ -13,6 +13,7 @@
         :createTime="photo.createTime"
         @click="showModal(photo)"
       ></explorer-item>
+      <the-pagination></the-pagination>
     </div>
   </transition>
   <div class="no-data-container" v-if="noMatchingData">
@@ -39,12 +40,14 @@ import Constants from "../constants";
 import IndexHero from "../components/sections/IndexHero.vue";
 import ExplorerItem from "../components/explorer/ExplorerItem.vue";
 import PhotoModal from "../components/layouts/PhotoModal.vue";
+import ThePagination from "../components/layouts/ThePagination.vue";
 
 export default {
   components: {
     "index-hero": IndexHero,
     "explorer-item": ExplorerItem,
     "photo-modal": PhotoModal,
+    "the-pagination": ThePagination,
   },
   data() {
     return {
