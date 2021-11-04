@@ -7,6 +7,9 @@ import Explorer from "./pages/Explorer.vue";
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition ? savedPosition : { left: 0, top: 0 };
+  },
   routes: [
     { path: "/", component: Index },
     {

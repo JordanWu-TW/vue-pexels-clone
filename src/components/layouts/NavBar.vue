@@ -1,5 +1,9 @@
 <template>
-  <header v-if="!isLoginModalVisible" :class="{ solidColor: changeNavStyle }">
+  <header
+    id="nav-bar"
+    v-if="!isLoginModalVisible"
+    :class="{ solidColor: changeNavStyle }"
+  >
     <div class="logo-container">
       <router-link to="/" class="logo-icon">
         <img

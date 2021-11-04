@@ -14,7 +14,7 @@
         @click="showModal(photo)"
       ></explorer-item>
       <div class="pagination-container">
-        <button class="btn prev-page" @click="prevPage">
+        <button class="btn prev-page" @click="prevPage" v-if="isNotFirstPage">
           <ion-icon
             name="chevron-back-outline"
             class="chevron-back-outline"
@@ -29,7 +29,7 @@
         >
           {{ pageNum }}
         </button>
-        <button class="btn next-page" @click="nextPage">
+        <button class="btn next-page" @click="nextPage" v-if="isNotLastPage">
           <ion-icon
             name="chevron-forward-outline"
             class="chevron-forward-outline"
@@ -108,17 +108,31 @@ export default {
     toPageNum(pageNum) {
       if (pageNum !== this.pagination.currentPageNum) {
         this.pagination.currentPageNum = pageNum;
+        this.scrollToTop();
       }
     },
     prevPage() {
       if (this.pagination.currentPageNum !== 1) {
         this.pagination.currentPageNum--;
+        this.scrollToTop();
       }
     },
     nextPage() {
       if (this.pagination.currentPageNum !== this.pagination.numOfPages) {
         this.pagination.currentPageNum++;
+        this.scrollToTop();
       }
+    },
+    scrollToTop() {
+      const el = document.querySelector(".section-hero");
+      const elDistanceToTop =
+        window.pageYOffset + el.getBoundingClientRect().bottom;
+      const navHeight = document.querySelector("#nav-bar").clientHeight;
+      window.scroll({
+        top: elDistanceToTop - navHeight,
+        left: 0,
+        behavior: "smooth",
+      });
     },
     setPhotos(searchKeyword) {
       let photos = this.$store.getters["photos/getAllPhotos"];
@@ -149,6 +163,12 @@ export default {
   computed: {
     searchKeyword() {
       return this.$store.getters["photos/getSearchKeyword"];
+    },
+    isNotFirstPage() {
+      return this.pagination.currentPageNum > 1;
+    },
+    isNotLastPage() {
+      return this.pagination.currentPageNum < this.pagination.numOfPages;
     },
   },
   watch: {
