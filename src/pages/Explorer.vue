@@ -3,7 +3,7 @@
   <transition name="default">
     <div class="container" v-if="!isLoading && !noMatchingData">
       <explorer-item
-        v-for="photo in photos"
+        v-for="photo in pagination.pageItems"
         :key="photo.photoId"
         :userId="photo.userId"
         :photoId="photo.photoId"
@@ -13,6 +13,29 @@
         :createTime="photo.createTime"
         @click="showModal(photo)"
       ></explorer-item>
+      <div class="pagination-container">
+        <button class="btn prev-page" @click="prevPage" v-if="isNotFirstPage">
+          <ion-icon
+            name="chevron-back-outline"
+            class="chevron-back-outline"
+          ></ion-icon>
+        </button>
+        <button
+          class="btn"
+          v-for="pageNum in pagination.numOfPages"
+          :key="pageNum"
+          :class="{ on: isCurrentPage(pageNum) }"
+          @click="toPageNum(pageNum)"
+        >
+          {{ pageNum }}
+        </button>
+        <button class="btn next-page" @click="nextPage" v-if="isNotLastPage">
+          <ion-icon
+            name="chevron-forward-outline"
+            class="chevron-forward-outline"
+          ></ion-icon>
+        </button>
+      </div>
     </div>
   </transition>
   <div class="no-data-container" v-if="noMatchingData">
@@ -48,10 +71,17 @@ export default {
   },
   data() {
     return {
+      photos: null,
       isLoading: false,
       noMatchingData: false,
       isModalVisible: false,
       modalData: null,
+      pagination: {
+        numOfItems: null,
+        numOfPages: null,
+        currentPageNum: null,
+        pageItems: null,
+      },
     };
   },
   methods: {
@@ -72,13 +102,43 @@ export default {
       }
       return description;
     },
-  },
-  computed: {
-    photos() {
+    isCurrentPage(pageNum) {
+      return pageNum === this.pagination.currentPageNum;
+    },
+    toPageNum(pageNum) {
+      if (pageNum !== this.pagination.currentPageNum) {
+        this.pagination.currentPageNum = pageNum;
+        this.scrollToTop();
+      }
+    },
+    prevPage() {
+      if (this.pagination.currentPageNum !== 1) {
+        this.pagination.currentPageNum--;
+        this.scrollToTop();
+      }
+    },
+    nextPage() {
+      if (this.pagination.currentPageNum !== this.pagination.numOfPages) {
+        this.pagination.currentPageNum++;
+        this.scrollToTop();
+      }
+    },
+    scrollToTop() {
+      const el = document.querySelector(".section-hero");
+      const elDistanceToTop =
+        window.pageYOffset + el.getBoundingClientRect().bottom;
+      const navHeight = document.querySelector("#nav-bar").clientHeight;
+      window.scroll({
+        top: elDistanceToTop - navHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+    setPhotos(searchKeyword) {
       let photos = this.$store.getters["photos/getAllPhotos"];
-      if (this.searchKeyword !== "") {
+      if (searchKeyword.trim() !== "") {
         photos = photos.filter((photo) => {
-          const lowerCasedSearchKeyword = this.searchKeyword.toLowerCase();
+          const lowerCasedSearchKeyword = searchKeyword.toLowerCase();
           const lowerCasedSearchTitle = photo.title.toLowerCase();
           const lowerCasedSearchDescription = photo.description.toLowerCase();
           return (
@@ -87,23 +147,68 @@ export default {
           );
         });
       }
-      return photos;
+      this.photos = photos;
+      this.setPagination(photos);
     },
+    setPagination(photos) {
+      let numOfPages = Math.floor(photos.length / Constants.PHOTO_PAGESIZE);
+      if (photos.length % Constants.PHOTO_PAGESIZE !== 0) {
+        numOfPages++;
+      }
+      this.pagination.numOfPages = numOfPages;
+      this.pagination.currentPageNum = 1;
+      this.pagination.numOfItems = photos.length;
+    },
+  },
+  computed: {
     searchKeyword() {
       return this.$store.getters["photos/getSearchKeyword"];
     },
+    isNotFirstPage() {
+      return this.pagination.currentPageNum > 1;
+    },
+    isNotLastPage() {
+      return this.pagination.currentPageNum < this.pagination.numOfPages;
+    },
   },
   watch: {
+    searchKeyword(enteredValue) {
+      this.setPhotos(enteredValue);
+    },
     photos() {
       this.photos.length === 0
         ? (this.noMatchingData = true)
         : (this.noMatchingData = false);
+    },
+    pagination: {
+      handler: function(newVal) {
+        const pageNum = newVal.currentPageNum;
+        if (pageNum === 1) {
+          this.pagination.pageItems = this.photos.slice(
+            0,
+            Constants.PHOTO_PAGESIZE
+          );
+        } else if (pageNum === this.pagination.numOfPages) {
+          this.pagination.pageItems = this.photos.slice(
+            pageNum * Constants.PHOTO_PAGESIZE - Constants.PHOTO_PAGESIZE,
+            this.pagination.numOfItems
+          );
+        } else {
+          this.pagination.pageItems = this.photos.slice(
+            pageNum * Constants.PHOTO_PAGESIZE - Constants.PHOTO_PAGESIZE,
+            pageNum * Constants.PHOTO_PAGESIZE
+          );
+        }
+      },
+      deep: true,
     },
   },
   async created() {
     this.isLoading = true;
     await this.$store.dispatch("photos/loadAllPhotos");
     this.isLoading = false;
+    const searchKeyword = this.$store.getters["photos/getSearchKeyword"];
+    this.setPhotos(searchKeyword);
   },
   beforeRouteLeave() {
     this.$store.dispatch("photos/resetSearchKeyword");
@@ -130,6 +235,41 @@ export default {
 .no-data-container img {
   width: 20rem;
 }
+.pagination-container {
+  margin-top: 2.4rem;
+  grid-column: 1 / -1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.btn {
+  font-size: inherit;
+  font-weight: 500;
+  background: transparent;
+  color: #2d2d2d;
+  border: none;
+  border-radius: 3px;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.chevron-back-outline,
+.chevron-forward-outline {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+.btn.on {
+  background: #05a081;
+  color: #fff;
+  cursor: default;
+}
+.btn:hover:not(.on) {
+  transform: scale(1.1);
+}
 /* max-width: 1248px */
 @media (max-width: 78em) {
   .container {
@@ -154,6 +294,9 @@ export default {
 @media (max-width: 24em) {
   .container {
     padding: 3rem;
+  }
+  .pagination-container {
+    margin-top: 0;
   }
 }
 </style>

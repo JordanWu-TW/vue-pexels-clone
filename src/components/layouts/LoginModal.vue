@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @click.self="showLoginModal(false)">
     <nav>
       <router-link to="#" class="nav-logo-link">
         <img src="../../assets/logo/Pexels-Logo.jpeg" alt="Picture of logo" />
@@ -12,7 +12,6 @@
       </div>
     </nav>
     <div class="sign-in-container">
-      <div class="container-close-btn" @click="showLoginModal(false)"></div>
       <h1>Welcome Back To Pexels</h1>
       <button class="social-media-login-btn facebook-login-btn">
         <img
@@ -230,22 +229,6 @@ nav div .nav-join-link button:hover {
   border-radius: 0.6rem;
   width: 48.5rem;
   gap: 1.5rem;
-}
-.container-close-btn {
-  display: inline-block;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  background: url("../../assets/button/cancel.png");
-  background-position: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  top: -1rem;
-  right: -1rem;
-  cursor: pointer;
-}
-.container-close-btn:hover {
-  transform: scale(1.05);
 }
 .sign-in-container h1 {
   align-self: center;
