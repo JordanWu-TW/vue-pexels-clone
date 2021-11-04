@@ -146,36 +146,47 @@ export default {
       this.pagination.numOfItems = photos.length;
     },
   },
+  computed: {
+    searchKeyword() {
+      return this.$store.getters["photos/getSearchKeyword"];
+    },
+  },
   watch: {
+    searchKeyword(enteredValue) {
+      this.setPhotos(enteredValue);
+    },
     photos() {
       this.photos.length === 0
         ? (this.noMatchingData = true)
         : (this.noMatchingData = false);
     },
-    "pagination.currentPageNum": function(pageNum) {
-      if (pageNum === 1) {
-        this.pagination.pageItems = this.photos.slice(
-          0,
-          Constants.PHOTO_PAGESIZE
-        );
-      } else if (pageNum === this.pagination.numOfPages) {
-        this.pagination.pageItems = this.photos.slice(
-          pageNum * Constants.PHOTO_PAGESIZE - Constants.PHOTO_PAGESIZE,
-          this.pagination.numOfItems
-        );
-      } else {
-        this.pagination.pageItems = this.photos.slice(
-          pageNum * Constants.PHOTO_PAGESIZE - Constants.PHOTO_PAGESIZE,
-          pageNum * Constants.PHOTO_PAGESIZE
-        );
-      }
+    pagination: {
+      handler: function(newVal) {
+        const pageNum = newVal.currentPageNum;
+        if (pageNum === 1) {
+          this.pagination.pageItems = this.photos.slice(
+            0,
+            Constants.PHOTO_PAGESIZE
+          );
+        } else if (pageNum === this.pagination.numOfPages) {
+          this.pagination.pageItems = this.photos.slice(
+            pageNum * Constants.PHOTO_PAGESIZE - Constants.PHOTO_PAGESIZE,
+            this.pagination.numOfItems
+          );
+        } else {
+          this.pagination.pageItems = this.photos.slice(
+            pageNum * Constants.PHOTO_PAGESIZE - Constants.PHOTO_PAGESIZE,
+            pageNum * Constants.PHOTO_PAGESIZE
+          );
+        }
+      },
+      deep: true,
     },
   },
   async created() {
     this.isLoading = true;
     await this.$store.dispatch("photos/loadAllPhotos");
     this.isLoading = false;
-
     const searchKeyword = this.$store.getters["photos/getSearchKeyword"];
     this.setPhotos(searchKeyword);
   },
@@ -263,6 +274,9 @@ export default {
 @media (max-width: 24em) {
   .container {
     padding: 3rem;
+  }
+  .pagination-container {
+    margin-top: 0;
   }
 }
 </style>
