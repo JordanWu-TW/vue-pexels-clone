@@ -3,6 +3,9 @@ export default {
     return !!state.token;
   },
   userFullName(state) {
+    if (state.lastName === null) {
+      return state.firstName;
+    }
     return `${state.firstName} ${state.lastName}`;
   },
   userId(state) {
