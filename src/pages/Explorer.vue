@@ -148,7 +148,7 @@ export default {
         });
       }
       this.photos = photos;
-      this.setPagination(photos);
+      this.setPagination(this.photos);
     },
     setPagination(photos) {
       let numOfPages = Math.floor(photos.length / Constants.PHOTO_PAGESIZE);
@@ -156,6 +156,7 @@ export default {
         numOfPages++;
       }
       this.pagination.numOfPages = numOfPages;
+      this.pagination.currentPageNum = null;
       this.pagination.currentPageNum = 1;
       this.pagination.numOfItems = photos.length;
     },
@@ -180,9 +181,8 @@ export default {
         ? (this.noMatchingData = true)
         : (this.noMatchingData = false);
     },
-    pagination: {
-      handler: function(newVal) {
-        const pageNum = newVal.currentPageNum;
+    "pagination.currentPageNum": {
+      handler(pageNum) {
         if (pageNum === 1) {
           this.pagination.pageItems = this.photos.slice(
             0,
