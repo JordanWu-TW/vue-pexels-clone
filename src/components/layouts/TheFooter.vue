@@ -50,28 +50,28 @@
             <div class="social-media-container">
               <router-link to="#">
                 <img
-                  src="../../assets/logo/facebook.png"
+                  src="../../assets/img/facebook.png"
                   alt="Facebook icon"
                   class="social-media-icon"
                 />
               </router-link>
               <router-link to="#">
                 <img
-                  src="../../assets/logo/twitter.png"
+                  src="../../assets/img/twitter.png"
                   alt="Twitter icon"
                   class="social-media-icon"
                 />
               </router-link>
               <router-link to="#">
                 <img
-                  src="../../assets/logo/instagram.png"
+                  src="../../assets/img/instagram.png"
                   alt="Instagram icon"
                   class="social-media-icon"
                 />
               </router-link>
               <router-link to="#">
                 <img
-                  src="../../assets/logo/pinterest.png"
+                  src="../../assets/img/pinterest.png"
                   alt="Pinterest icon"
                   class="social-media-icon"
                 />
@@ -150,7 +150,7 @@
     <div class="footer-footer">
       <div class="footer-footer-left">
         <router-link to="#">
-          <img src="../../assets/logo/Pexels-Logo.jpeg" alt="" />
+          <img src="../../assets/img/Pexels-Logo.jpeg" alt="" />
           <p>
             Pexels
             <span
@@ -178,7 +178,7 @@
             <router-link to="#">
               <button>
                 <img
-                  src="../../assets/logo/en-US-9ac49f52fbe3cc86ef500da8d7dfac4468c0e98419808425a9cdc1af7714cee1.png"
+                  src="../../assets/img/en-US-9ac49f52fbe3cc86ef500da8d7dfac4468c0e98419808425a9cdc1af7714cee1.png"
                   alt="American flag"
                 />
                 <span>English</span>

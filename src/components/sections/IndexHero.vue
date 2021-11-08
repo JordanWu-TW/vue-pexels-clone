@@ -59,7 +59,7 @@ export default {
 .hero-img {
   position: relative;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url("../../assets/index/pexels-photo-8388979.jpeg");
+    url("../../assets/img/pexels-photo-8388979.jpeg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
