@@ -2,7 +2,6 @@
   <div class="photo-modal-container" @click.self="closeModal">
     <main>
       <img :src="modalData.imgUrl" alt="" />
-
       <div class="content-container">
         <h1>{{ modalData.title }}</h1>
         <p>{{ modalData.description }}</p>
@@ -54,11 +53,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .photo-modal-container {
+  @include fullScreenSize;
   background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.6));
-  width: 100vw;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -67,47 +65,48 @@ export default {
   justify-content: center;
   align-items: center;
   padding-top: 6.6rem;
+  main {
+    max-width: 80rem;
+    background-color: $color-white;
+    max-height: 85vh;
+    overflow: scroll;
+    position: relative;
+    border-radius: 9px;
+    img {
+      @include fullSize;
+    }
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      padding: 2.4rem 3.2rem;
+      gap: 1.2rem;
+      h1 {
+        font-size: 2.4rem;
+        line-height: 1.5;
+        font-weight: 500;
+      }
+      p {
+        font-size: 1.6rem;
+        line-height: 1.5;
+      }
+      small {
+        font-size: 1.4rem;
+        color: #696969;
+      }
+      button {
+        background-color: $color-black;
+        color: $color-white;
+        border-radius: 3px;
+        padding: 0.7rem;
+        border: 1px solid$color-black;
+        font-weight: 300;
+        cursor: pointer;
+        margin-top: 1.2rem;
+      }
+    }
+  }
 }
-main {
-  max-width: 80rem;
-  background-color: #fff;
-  max-height: 85vh;
-  overflow: scroll;
-  position: relative;
-  border-radius: 9px;
-}
-main img {
-  width: 100%;
-}
-.content-container {
-  display: flex;
-  flex-direction: column;
-  padding: 2.4rem 3.2rem;
-  gap: 1.2rem;
-}
-.content-container h1 {
-  font-size: 2.4rem;
-  line-height: 1.5;
-  font-weight: 500;
-}
-.content-container p {
-  font-size: 1.6rem;
-  line-height: 1.5;
-}
-.content-container small {
-  font-size: 1.4rem;
-  color: #696969;
-}
-.content-container button {
-  background-color: #000;
-  color: #fff;
-  border-radius: 3px;
-  padding: 0.7rem;
-  border: 1px solid #000;
-  font-weight: 300;
-  cursor: pointer;
-  margin-top: 1.2rem;
-}
+
 /* max-width: 640px */
 @media (max-width: 40em) {
   main {

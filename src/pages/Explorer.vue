@@ -218,22 +218,26 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  max-width: 140rem;
-  margin: 0 auto;
+  @include container-fluid(140rem);
   padding: 6rem 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 3.6rem;
 }
-.load-spinner-container,
-.no-data-container {
+.load-spinner-container {
   max-width: 140rem;
   margin: 0 auto;
   padding: 10rem 0;
   text-align: center;
 }
-.no-data-container img {
-  width: 20rem;
+.no-data-container {
+  max-width: 140rem;
+  margin: 0 auto;
+  padding: 10rem 0;
+  text-align: center;
+  img {
+    width: 20rem;
+  }
 }
 .pagination-container {
   margin-top: 2.4rem;
@@ -244,17 +248,15 @@ export default {
   gap: 1rem;
 }
 .btn {
+  @include flexCenter;
   font-size: inherit;
   font-weight: 500;
   background: transparent;
-  color: #2d2d2d;
+  color: $color-text-dark;
   border: none;
   border-radius: 3px;
   width: 3rem;
   height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
 }
 .chevron-back-outline,
@@ -264,7 +266,7 @@ export default {
 }
 .btn.on {
   background: $color-primary;
-  color: #fff;
+  color: $color-white;
   cursor: default;
 }
 .btn:hover:not(.on) {

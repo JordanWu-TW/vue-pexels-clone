@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .explorer-item-container {
   box-shadow: 0 2.4rem 4.8rem rgb(0 0 0 / 8%);
   border-radius: 9px;
@@ -33,42 +33,46 @@ export default {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
-.explorer-item-container:hover {
-  transform: scale(1.05);
-}
+
 .explorer-item-img {
   height: 20rem;
   align-self: center;
+  img {
+    height: 100%;
+    border-radius: 9px 9px 0 0;
+  }
 }
-.explorer-item-img img {
-  height: 100%;
-  border-radius: 9px 9px 0 0;
-}
+
 .explorer-item-content {
   padding: 2.8rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 500;
+  }
+  p {
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
 }
-.explorer-item-content h1 {
-  font-size: 2.4rem;
-  font-weight: 500;
-}
-.explorer-item-content p {
-  font-size: 1.6rem;
-  line-height: 1.5;
-}
+
 .explorer-item-container.new::after {
   content: "New Release";
   text-align: center;
-  color: #fff;
+  color: $color-white;
   padding: 0.5rem 0;
   background-color: #05a081;
   font-size: 1.2rem;
   font-weight: 500;
   margin-top: auto;
 }
+
 /* max-width: 544px */
 @media (max-width: 34em) {
   .container {
