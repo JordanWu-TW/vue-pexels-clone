@@ -2,7 +2,7 @@
   <div class="container" @click.self="showLoginModal(false)">
     <nav>
       <router-link to="#" class="nav-logo-link">
-        <img src="../../assets/logo/Pexels-Logo.jpeg" alt="Picture of logo" />
+        <img src="../../assets/img/Pexels-Logo.jpeg" alt="Picture of logo" />
       </router-link>
       <div>
         <p>New to Pexels?</p>
@@ -15,14 +15,14 @@
       <h1>Welcome Back To Pexels</h1>
       <button class="social-media-login-btn facebook-login-btn">
         <img
-          src="../../assets/logo/facebook-app-logo.png"
+          src="../../assets/img/facebook-app-logo.png"
           alt="Picture of Facebook logo"
         />
         <span>Login with Facebook</span>
       </button>
       <button class="social-media-login-btn apple-login-btn">
         <img
-          src="../../assets/logo/apple-black-logo.png"
+          src="../../assets/img/apple-black-logo.png"
           alt="Picture of Apple logo"
         />
         <span>Login with Apple</span>

@@ -92,7 +92,7 @@ export default {
       if (this.formValidation.imgUrl) {
         return this.inputObj.imgUrl;
       } else {
-        return require("../../assets/misc/placeholder-image.png");
+        return require("../../assets/img/placeholder-image.png");
       }
     },
     isFormValidated() {

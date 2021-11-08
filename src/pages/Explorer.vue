@@ -40,7 +40,7 @@
   </transition>
   <div class="no-data-container" v-if="noMatchingData">
     <img
-      src="../assets/misc/result-not-found.png"
+      src="../assets/img/result-not-found.png"
       alt="Picture of no matching data"
     />
   </div>
@@ -216,7 +216,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   max-width: 140rem;
   margin: 0 auto;
@@ -263,7 +263,7 @@ export default {
   height: 2.2rem;
 }
 .btn.on {
-  background: #05a081;
+  background: $color-primary;
   color: #fff;
   cursor: default;
 }

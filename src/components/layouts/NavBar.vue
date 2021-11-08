@@ -7,7 +7,7 @@
     <div class="logo-container">
       <router-link to="/" class="logo-icon">
         <img
-          src="../../assets/logo/Pexels-Logo.jpeg"
+          src="../../assets/img/Pexels-Logo.jpeg"
           alt="Picture of logo"
           title="Free Stock Photos"
           @click="closeMobileNav"
@@ -62,7 +62,7 @@
           @mouseleave="hideSubmenu"
         >
           <div>
-            <img src="../../assets/logo/user.png" alt="" />
+            <img src="../../assets/img/user.png" alt="" />
           </div>
           <div>
             <ion-icon name="chevron-down-outline"></ion-icon>
@@ -123,7 +123,7 @@
       </div>
       <div class="mobile-nav-container" :class="{ on: isMobileNavVisible }">
         <div class="greetings-container-mob" v-if="userIsAuthenticated">
-          <img src="../../assets/logo/user.png" alt="" />
+          <img src="../../assets/img/user.png" alt="" />
           <h1>{{ userFullName }}</h1>
         </div>
         <ul>
@@ -261,21 +261,18 @@
         <ul>
           <li>
             <router-link to="#" class="">
-              <img
-                src="../../assets/logo/facebook.png"
-                alt="Logo of Facebook"
-              />
+              <img src="../../assets/img/facebook.png" alt="Logo of Facebook" />
             </router-link>
           </li>
           <li>
             <router-link to="#" class="">
-              <img src="../../assets/logo/twitter.png" alt="Logo of Twitter" />
+              <img src="../../assets/img/twitter.png" alt="Logo of Twitter" />
             </router-link>
           </li>
           <li>
             <router-link to="#" class="">
               <img
-                src="../../assets/logo/instagram.png"
+                src="../../assets/img/instagram.png"
                 alt="Logo of Instagram"
               />
             </router-link>
@@ -283,14 +280,14 @@
           <li>
             <router-link to="#" class="">
               <img
-                src="../../assets/logo/pinterest.png"
+                src="../../assets/img/pinterest.png"
                 alt="Logo of Pinterest"
               />
             </router-link>
           </li>
           <li>
             <router-link to="#" class="">
-              <img src="../../assets/logo/youtube.png" alt="Logo of Youtube" />
+              <img src="../../assets/img/youtube.png" alt="Logo of Youtube" />
             </router-link>
           </li>
         </ul>

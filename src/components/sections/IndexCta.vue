@@ -6,7 +6,7 @@
         <p>Take your photography to the next level. Get it seen by millions.</p>
         <button class="cta-btn">
           <img
-            src="../../assets/logo/facebook-app-logo.png"
+            src="../../assets/img/facebook-app-logo.png"
             alt="Picture of Facebook logo"
           />
           <span>Join with Facebook</span>
@@ -69,19 +69,19 @@
         <div class="featured-in-container">
           <div class="featured-in-imgs">
             <img
-              src="../../assets/index/featured-in/forbes.png"
+              src="../../assets/img/forbes.png"
               alt="Picture of Forbes brand"
             />
             <img
-              src="../../assets/index/featured-in/usa-today.png"
+              src="../../assets/img/usa-today.png"
               alt="Picture of USA TODAY brand"
             />
             <img
-              src="../../assets/index/featured-in/business-insider.png"
+              src="../../assets/img/business-insider.png"
               alt="Picture of Business Insider brand"
             />
             <img
-              src="../../assets/index/featured-in/the-new-york-times.png"
+              src="../../assets/img/the-new-york-times.png"
               alt="Picture of The New York Times brand"
             />
           </div>
@@ -91,31 +91,31 @@
         <div class="happy-customer-container">
           <div class="happy-customers">
             <img
-              src="../../assets/index/customers/customer-1.jpg"
+              src="../../assets/img/customer-1.jpg"
               alt="Picture of happy customer"
             />
             <img
-              src="../../assets/index/customers/customer-2.jpg"
+              src="../../assets/img/customer-2.jpg"
               alt="Picture of happy customer"
             />
             <img
-              src="../../assets/index/customers/customer-3.jpg"
+              src="../../assets/img/customer-3.jpg"
               alt="Picture of happy customer"
             />
             <img
-              src="../../assets/index/customers/customer-4.jpg"
+              src="../../assets/img/customer-4.jpg"
               alt="Picture of happy customer"
             />
             <img
-              src="../../assets/index/customers/customer-5.jpg"
+              src="../../assets/img/customer-5.jpg"
               alt="Picture of happy customer"
             />
             <img
-              src="../../assets/index/customers/customer-6.jpg"
+              src="../../assets/img/customer-6.jpg"
               alt="Picture of happy customer"
             />
             <img
-              src="../../assets/index/customers/ben.jpg"
+              src="../../assets/img/ben.jpg"
               alt="Picture of happy customer"
             />
           </div>
