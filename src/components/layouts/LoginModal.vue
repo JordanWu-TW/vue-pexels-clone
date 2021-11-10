@@ -1,7 +1,7 @@
 <template>
   <div class="container" @click.self="showLoginModal(false)">
     <nav>
-      <router-link to="#" class="nav-logo-link">
+      <router-link to="/" class="nav-logo-link" @click="showLoginModal(false)">
         <img src="../../assets/img/Pexels-Logo.jpeg" alt="Picture of logo" />
       </router-link>
       <div>

@@ -39,10 +39,14 @@
     <nav>
       <ul class="nav-desktop">
         <li>
-          <router-link to="/explorer" class="nav-link">Explore</router-link>
+          <router-link to="/explorer" class="nav-link"
+            >Explore-Page</router-link
+          >
         </li>
         <li>
-          <router-link to="#" class="nav-link">License</router-link>
+          <router-link to="/explorer-scroll" class="nav-link"
+            >Explore-Scroll</router-link
+          >
         </li>
         <li>
           <router-link to="#" class="nav-link">Partners</router-link>
@@ -140,12 +144,15 @@
               class="mobile-nav-link"
               to="/explorer"
               @click="closeMobileNav"
-              >Explore Photos</router-link
+              >Explore Photos (Page)</router-link
             >
           </li>
           <li>
-            <router-link class="mobile-nav-link" to="#"
-              >Popular Searches</router-link
+            <router-link
+              class="mobile-nav-link"
+              to="/explorer-scroll"
+              @click="closeMobileNav"
+              >Explore Photos (Scroll)</router-link
             >
           </li>
           <li>

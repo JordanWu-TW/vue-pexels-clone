@@ -4,6 +4,7 @@ import store from "./store/index";
 import Index from "./pages/Index.vue";
 import Upload from "./pages/Upload.vue";
 import Explorer from "./pages/Explorer.vue";
+import ExplorerByScroll from "./pages/ExplorerByScroll.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,6 +21,7 @@ const router = createRouter({
       },
     },
     { path: "/explorer", component: Explorer },
+    { path: "/explorer-scroll", component: ExplorerByScroll },
     { path: "/:notFound", redirect: "/" },
   ],
 });
